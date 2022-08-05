@@ -30,8 +30,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     compileOnly fileTree(include: ['*.aar'], dir: 'libs')
-    implementation 'com.yandex.android:mobileads:5.1.1'     // yandex mobile ads
-    implementation 'com.yandex.android:mobmetricalib:4.2.0' //yandex metrica
+    implementation 'com.yandex.android:mobileads:5.2.0'    // yandex mobile ads
+    implementation 'com.yandex.android:mobmetricalib:5.0.1' //yandex metrica
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
