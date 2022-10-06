@@ -32,7 +32,6 @@ import org.godotengine.godot.plugin.GodotPlugin;
 import org.godotengine.godot.plugin.SignalInfo;
 import org.godotengine.godot.plugin.UsedByGodot;
 
-import java.util.Objects;
 import java.util.Set;
 
 public class GodotAndroidYandexAds extends GodotPlugin {
@@ -96,12 +95,12 @@ public class GodotAndroidYandexAds extends GodotPlugin {
 
     /* Init */
     @UsedByGodot
-    public void init(final String API_key) { // The API key is a unique application identifier that is issued in the AppMetrica web interface during app registration
+    public void init(final String API_key) { // The API key is a unique application identifier that is issued in the AppMetrics web interface during app registration
         if (!API_key.isEmpty()) {
-            // initialization yandex metrica
+            // initialization yandex metrics
             // Creating an extended library configuration.
             YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(API_key).build();
-            // Initializing the AppMetrica SDK.
+            // Initializing the AppMetrics SDK.
             YandexMetrica.activate(activity.getApplicationContext(), config);
             // Automatic tracking of user activity.
             YandexMetrica.enableActivityAutoTracking(activity.getApplication());
