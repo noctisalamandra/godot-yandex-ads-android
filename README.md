@@ -1,1 +1,1 @@
-# godot-yandex-ads-android
+# Godot YandexAdsAndroid
