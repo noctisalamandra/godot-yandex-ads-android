@@ -19,7 +19,6 @@ import com.yandex.mobile.ads.banner.BannerAdView;
 import com.yandex.mobile.ads.common.AdRequest;
 import com.yandex.mobile.ads.common.AdRequestError;
 import com.yandex.mobile.ads.common.ImpressionData;
-import com.yandex.mobile.ads.common.InitializationListener;
 import com.yandex.mobile.ads.common.MobileAds;
 import com.yandex.mobile.ads.interstitial.InterstitialAd;
 import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener;
@@ -106,12 +105,7 @@ public class GodotAndroidYandexAds extends GodotPlugin {
             YandexMetrica.enableActivityAutoTracking(activity.getApplication());
         }
         // initialization will speed up the loading of ads
-        MobileAds.initialize(activity.getApplicationContext(), new InitializationListener() {
-            @Override
-            public void onInitializationCompleted() {
-                Log.d(YANDEX_MOBILE_ADS_TAG, "SDK initialized");
-            }
-        });
+        MobileAds.initialize(activity.getApplicationContext(), () -> Log.d(YANDEX_MOBILE_ADS_TAG, "SDK initialized"));
     }
 
     private AdRequest getAdRequest() {
@@ -189,34 +183,31 @@ public class GodotAndroidYandexAds extends GodotPlugin {
 
     @UsedByGodot
     public void loadRewardedVideo(final String id) {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                try {
-                    rewardedVideo = initRewardedVideo(id);
-                } catch (Exception e) {
-                    Log.e("godot", e.toString());
-                    e.printStackTrace();
-                }
+        activity.runOnUiThread(() -> {
+            try {
+                rewardedVideo = initRewardedVideo(id);
+            } catch (Exception e) {
+                Log.e("godot", e.toString());
+                e.printStackTrace();
             }
         });
     }
 
     @UsedByGodot
     public void showRewardedVideo() {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                if(rewardedVideo != null) {
-                    if (rewardedVideo.isLoaded()) {
-                        rewardedVideo.show();
-                    } else {
-                        Log.w("godot", "YandexAds: showRewardedVideo - rewarded not loaded");
-                    }
+        activity.runOnUiThread(() -> {
+            if(rewardedVideo != null) {
+                if (rewardedVideo.isLoaded()) {
+                    rewardedVideo.show();
+                } else {
+                    Log.w("godot", "YandexAds: showRewardedVideo - rewarded not loaded");
                 }
             }
         });
     }
 
     /* Banner */
+    @SuppressWarnings("deprecation")
     private AdSize getAdSize(final String bannerSize) {
         switch (bannerSize) {
             case "BANNER_240x400":
@@ -297,60 +288,52 @@ public class GodotAndroidYandexAds extends GodotPlugin {
 
     @UsedByGodot
     public void loadBanner(final String id, final boolean isOnTop, final String bannerSize) {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                if(banner == null) {
-                    banner = initBanner(id, isOnTop, bannerSize);
-                } else {
-                    banner.loadAd(getAdRequest());
-                    //Log.w("godot", "YandexAds: Banner already created: "+id);
-                }
+        activity.runOnUiThread(() -> {
+            if(banner == null) {
+                banner = initBanner(id, isOnTop, bannerSize);
+            } else {
+                banner.loadAd(getAdRequest());
+                //Log.w("godot", "YandexAds: Banner already created: "+id);
             }
         });
     }
 
     @UsedByGodot
     public void showBanner() {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                if(banner != null) {
-                    banner.setVisibility(View.VISIBLE);
-                    Log.d("godot", "YandexAds: Show Banner");
-                } else {
-                    Log.w("godot", "YandexAds: Banner not found");
-                }
+        activity.runOnUiThread(() -> {
+            if(banner != null) {
+                banner.setVisibility(View.VISIBLE);
+                Log.d("godot", "YandexAds: Show Banner");
+            } else {
+                Log.w("godot", "YandexAds: Banner not found");
             }
         });
     }
 
     @UsedByGodot
     public void removeBanner() {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                if (layout == null || adParams == null)	{
-                    return;
-                }
+        activity.runOnUiThread(() -> {
+            if (layout == null || adParams == null)	{
+                return;
+            }
 
-                if(banner != null) {
-                    layout.removeView(banner); // Remove the banner
-                    Log.d("godot", "YandexAds: Remove Banner");
-                } else {
-                    Log.w("godot", "YandexAds: Banner not found");
-                }
+            if(banner != null) {
+                layout.removeView(banner); // Remove the banner
+                Log.d("godot", "YandexAds: Remove Banner");
+            } else {
+                Log.w("godot", "YandexAds: Banner not found");
             }
         });
     }
 
     @UsedByGodot
     public void hideBanner() {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                if(banner != null) {
-                    banner.setVisibility(View.GONE);
-                    Log.d("godot", "YandexAds: Hide Banner");
-                } else {
-                    Log.w("godot", "YandexAds: Banner not found");
-                }
+        activity.runOnUiThread(() -> {
+            if(banner != null) {
+                banner.setVisibility(View.GONE);
+                Log.d("godot", "YandexAds: Hide Banner");
+            } else {
+                Log.w("godot", "YandexAds: Banner not found");
             }
         });
     }
@@ -433,23 +416,17 @@ public class GodotAndroidYandexAds extends GodotPlugin {
 
     @UsedByGodot
     public void loadInterstitial(final String id) {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                interstitial = initInterstitial(id);
-            }
-        });
+        activity.runOnUiThread(() -> interstitial = initInterstitial(id));
     }
 
     @UsedByGodot
     public void showInterstitial() {
-        activity.runOnUiThread(new Runnable() {
-            @Override public void run() {
-                if(interstitial != null) {
-                    if (interstitial.isLoaded()) {
-                        interstitial.show();
-                    } else {
-                        Log.w("godot", "YandexAds: showInterstitial - interstitial not loaded");
-                    }
+        activity.runOnUiThread(() -> {
+            if(interstitial != null) {
+                if (interstitial.isLoaded()) {
+                    interstitial.show();
+                } else {
+                    Log.w("godot", "YandexAds: showInterstitial - interstitial not loaded");
                 }
             }
         });
