@@ -34,7 +34,7 @@ In build.gradle the module file of your application add the following code:
 ```
 dependencies {
     ...
-    implementation 'com.yandex.android:mobileads:5.3.2'
+    implementation 'com.yandex.android:mobileads:5.5.0'
 }
 ```
 
