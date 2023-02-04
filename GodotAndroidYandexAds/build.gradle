@@ -28,7 +28,7 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
     compileOnly fileTree(include: ['*.aar'], dir: 'libs')
     implementation 'com.yandex.android:mobileads:5.5.0'    // yandex mobile ads
     implementation 'com.yandex.android:mobmetricalib:5.2.0' //yandex metrics
