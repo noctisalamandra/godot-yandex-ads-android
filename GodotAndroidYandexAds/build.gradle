@@ -6,9 +6,8 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdk 21
+        minSdk 22
         targetSdk 33
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -30,7 +29,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     compileOnly fileTree(include: ['*.aar'], dir: 'libs')
-    implementation 'com.yandex.android:mobileads:5.7.0'    // yandex mobile ads
+    implementation 'com.yandex.android:mobileads:5.9.0'    // yandex mobile ads
     implementation 'com.yandex.android:mobmetricalib:5.3.0' //yandex metrics
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

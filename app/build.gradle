@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.yoshi.godotandroidyandexads"
-        minSdk 21
+        minSdk 22
         targetSdk 33
         versionCode 1
         versionName "1.0"
