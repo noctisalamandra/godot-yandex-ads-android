@@ -3,6 +3,6 @@
     <application>
         <meta-data
             android:name="org.godotengine.plugin.v1.GodotAndroidYandexAds"
-            android:value="com.yoshi.godotandroidyandexads.GodotAndroidYandexAds"/>
+            android:value="com.darkmoonight.godotandroidyandexads.GodotAndroidYandexAds"/>
     </application>
 </manifest>
