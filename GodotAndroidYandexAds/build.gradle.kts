@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.darkmoonight.godotandroidyandexads"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 23
@@ -29,7 +29,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))

@@ -4,12 +4,11 @@ plugins {
 
 android {
     namespace = "com.darkmoonight.godot_android_yandex_ads"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.darkmoonight.godot_android_yandex_ads"
         minSdk = 23
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -32,7 +31,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     testImplementation("junit:junit:4.13.2")
