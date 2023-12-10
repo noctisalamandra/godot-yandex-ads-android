@@ -32,7 +32,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
-    implementation("com.yandex.android:mobileads:6.1.0")        // Yandex mobile ads
+    implementation("com.yandex.android:mobileads:6.2.0")        // Yandex mobile ads
     implementation("io.appmetrica.analytics:analytics:6.0.0")    // Yandex metrics
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
