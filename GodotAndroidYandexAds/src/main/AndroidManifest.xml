@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application>
         <meta-data
-            android:name="org.godotengine.plugin.v1.GodotAndroidYandexAds"
+            android:name="org.godotengine.plugin.v2.GodotAndroidYandexAds"
             android:value="com.darkmoonight.godotandroidyandexads.GodotAndroidYandexAds"/>
     </application>
 </manifest>
