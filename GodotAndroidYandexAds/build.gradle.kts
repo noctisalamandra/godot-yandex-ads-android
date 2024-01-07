@@ -1,41 +1,73 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     id("com.android.library")
 }
 
+val pluginName = "GodotAndroidYandexAds"
+val pluginPackageName = "com.darkmoonight.godotandroidyandexads"
+
 android {
-    namespace = "com.darkmoonight.godotandroidyandexads"
-    compileSdk = 34
+    namespace = pluginPackageName
+    compileSdk = 33
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
-        minSdk = 23
+        minSdk = 24
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        manifestPlaceholders["godotPluginName"] = pluginName
+        manifestPlaceholders["godotPluginPackageName"] = pluginPackageName
+        buildConfigField("String", "GODOT_PLUGIN_NAME", "\"${pluginName}\"")
+        setProperty("archivesBaseName", pluginName)
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
     implementation("com.yandex.android:mobileads:6.3.0")        // Yandex mobile ads
-    implementation("io.appmetrica.analytics:analytics:6.0.0")   // Yandex metrics
+    implementation("io.appmetrica.analytics:analytics:6.1.0")   // Yandex metrics
     implementation("org.godotengine:godot:4.2.1.stable")        // Godot
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("androidx.annotation:annotation-jvm:1.7.1")
+    implementation("androidx.collection:collection-jvm:1.3.0")
+}
+
+// BUILD TASKS DEFINITION
+val copyDebugAARToDemoAddons by tasks.registering(Copy::class) {
+    from("build/outputs/aar")
+    include("$pluginName-debug.aar")
+    into("demo/addons/$pluginName/bin/debug")
+}
+
+val copyReleaseAARToDemoAddons by tasks.registering(Copy::class) {
+    from("build/outputs/aar")
+    include("$pluginName-release.aar")
+    into("demo/addons/$pluginName/bin/release")
+}
+
+val cleanDemoAddons by tasks.registering(Delete::class) {
+    delete("demo/addons/$pluginName")
+}
+
+val copyAddonsToDemo by tasks.registering(Copy::class) {
+    dependsOn(cleanDemoAddons)
+    finalizedBy(copyDebugAARToDemoAddons)
+    finalizedBy(copyReleaseAARToDemoAddons)
+
+    from("export_scripts")
+    into("demo/addons/$pluginName")
+}
+
+tasks.named("assemble").configure {
+    finalizedBy(copyAddonsToDemo)
+}
+
+tasks.named<Delete>("clean").apply {
+    dependsOn(cleanDemoAddons)
 }

@@ -14,5 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "godot-android-yandex-ads"
-include(":app")
 include(":GodotAndroidYandexAds")
