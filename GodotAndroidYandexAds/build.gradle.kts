@@ -9,7 +9,7 @@ val pluginPackageName = "com.darkmoonight.godotandroidyandexads"
 
 android {
     namespace = pluginPackageName
-    compileSdk = 33
+    compileSdk = 34
 
     buildFeatures {
         buildConfig = true
@@ -31,43 +31,41 @@ android {
 }
 
 dependencies {
-    implementation("com.yandex.android:mobileads:6.3.0")        // Yandex mobile ads
-    implementation("io.appmetrica.analytics:analytics:6.1.0")   // Yandex metrics
+    implementation("com.yandex.android:mobileads:6.4.1")        // Yandex mobile ads
+    implementation("io.appmetrica.analytics:analytics:6.3.0")   // Yandex metrics
     implementation("org.godotengine:godot:4.2.1.stable")        // Godot
-    implementation("androidx.annotation:annotation-jvm:1.7.1")
-    implementation("androidx.collection:collection-jvm:1.3.0")
+    implementation("androidx.test.ext:junit:1.1.5")
 }
 
-// BUILD TASKS DEFINITION
-val copyDebugAARToDemoAddons by tasks.registering(Copy::class) {
+val copyDebugAARToPluginAddons by tasks.registering(Copy::class) {
     from("build/outputs/aar")
     include("$pluginName-debug.aar")
-    into("demo/addons/$pluginName/bin/debug")
+    into("plugin/addons/$pluginName/bin/debug")
 }
 
-val copyReleaseAARToDemoAddons by tasks.registering(Copy::class) {
+val copyReleaseAARToPluginAddons by tasks.registering(Copy::class) {
     from("build/outputs/aar")
     include("$pluginName-release.aar")
-    into("demo/addons/$pluginName/bin/release")
+    into("plugin/addons/$pluginName/bin/release")
 }
 
-val cleanDemoAddons by tasks.registering(Delete::class) {
-    delete("demo/addons/$pluginName")
+val cleanPluginAddons by tasks.registering(Delete::class) {
+    delete("plugin/addons/$pluginName")
 }
 
-val copyAddonsToDemo by tasks.registering(Copy::class) {
-    dependsOn(cleanDemoAddons)
-    finalizedBy(copyDebugAARToDemoAddons)
-    finalizedBy(copyReleaseAARToDemoAddons)
+val copyAddonsToPlugin by tasks.registering(Copy::class) {
+    dependsOn(cleanPluginAddons)
+    finalizedBy(copyDebugAARToPluginAddons)
+    finalizedBy(copyReleaseAARToPluginAddons)
 
     from("export_scripts")
-    into("demo/addons/$pluginName")
+    into("plugin/addons/$pluginName")
 }
 
 tasks.named("assemble").configure {
-    finalizedBy(copyAddonsToDemo)
+    finalizedBy(copyAddonsToPlugin)
 }
 
 tasks.named<Delete>("clean").apply {
-    dependsOn(cleanDemoAddons)
+    dependsOn(cleanPluginAddons)
 }

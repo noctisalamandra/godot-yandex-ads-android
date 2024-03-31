@@ -2,15 +2,16 @@ package com.darkmoonight.godotandroidyandexads;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.ArraySet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.collection.ArraySet;
 
 import com.yandex.mobile.ads.banner.BannerAdEventListener;
 import com.yandex.mobile.ads.banner.BannerAdSize;
@@ -120,7 +121,11 @@ public class GodotAndroidYandexAds extends GodotPlugin {
     @NonNull
     private BannerAdSize getAdSize() {
         final DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
-        int adWidthPixels = displayMetrics.widthPixels;
+
+        int adWidthPixels = bannerAdView != null ? bannerAdView.getWidth() : 0;
+        if (adWidthPixels == 0) {
+            adWidthPixels = displayMetrics.widthPixels;
+        }
         final int adWidth = Math.round(adWidthPixels / displayMetrics.density);
 
         return BannerAdSize.stickySize(activity, adWidth);
@@ -263,7 +268,6 @@ public class GodotAndroidYandexAds extends GodotPlugin {
                 rewardedAd = initRewardedVideo(id);
             } catch (Exception e) {
                 Log.e("godot", e.toString());
-                e.printStackTrace();
             }
         });
     }

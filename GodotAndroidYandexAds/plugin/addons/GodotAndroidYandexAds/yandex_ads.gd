@@ -32,11 +32,11 @@ func init() -> bool:
 		_yandex_singleton = Engine.get_singleton("GodotAndroidYandexAds")
 
 		if not _yandex_singleton.is_connected("_on_banner_loaded", self, "_on_banner_loaded"):
-        			connect_signals()
-        		_yandex_singleton.init(api_key)
-        		return true
+			connect_signals()
+			_yandex_singleton.init(api_key)
+			return true
 	else:
-	    printerr("Couldn't find GodotAndroidYandexAds singleton")
+		printerr("Couldn't find GodotAndroidYandexAds singleton")
 
 	return false
 
