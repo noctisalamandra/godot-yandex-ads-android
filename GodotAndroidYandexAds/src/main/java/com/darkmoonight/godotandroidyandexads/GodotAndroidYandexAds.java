@@ -102,13 +102,13 @@ public class GodotAndroidYandexAds extends GodotPlugin {
 
     /* Init */
     @UsedByGodot
-    public void init(@NonNull final String API_key) {
-        if (!API_key.isEmpty()) {
-            AppMetricaConfig config = AppMetricaConfig.newConfigBuilder(API_key).build();
+    public void init(@NonNull final String apiKey) {
+        if (!apiKey.isEmpty()) {
+            AppMetricaConfig config = AppMetricaConfig.newConfigBuilder(apiKey).build();
             AppMetrica.activate(activity.getApplicationContext(), config);
             AppMetrica.enableActivityAutoTracking(activity.getApplication());
         }
-        MobileAds.initialize(activity.getApplicationContext(), () -> Log.d(YANDEX_MOBILE_ADS_TAG, "SDK initialized"));
+        MobileAds.initialize(activity, () -> Log.d(YANDEX_MOBILE_ADS_TAG, "SDK initialized"));
     }
 
     /* Banner */
@@ -194,7 +194,7 @@ public class GodotAndroidYandexAds extends GodotPlugin {
                 bannerAdView = initBanner(id, isOnTop);
             } else {
                 bannerAdView.loadAd(new AdRequest.Builder().build());
-                // Log.w("godot", "YandexAds: Banner already created: "+id);
+                Log.w("godot", "YandexAds: Banner already created: " + id);
             }
         });
     }
@@ -309,7 +309,7 @@ public class GodotAndroidYandexAds extends GodotPlugin {
 
                     @Override
                     public void onRewarded(@NonNull Reward reward) {
-                        Log.w("godot", "YandexAds: " + String.format(" onRewarded! currency: %s amount: %d", reward.getType(), reward.getAmount()));
+                        Log.w("godot", "YandexAds: " + String.format("onRewarded! currency: %s amount: %d", reward.getType(), reward.getAmount()));
                         emitSignal("_on_rewarded", reward.getType(), reward.getAmount());
                     }
                 });
