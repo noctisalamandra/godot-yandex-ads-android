@@ -280,7 +280,7 @@ public class GodotAndroidYandexAds extends GodotPlugin {
                     @Override
                     public void onAdShown() {
                         Log.w("godot", "YandexAds: onRewardedVideoAdShown");
-                        emitSignal("_on_rewarded_video_ad_shown");
+                        emitSignal("_on_rewarded_video_ad_show");
                     }
 
                     @Override
@@ -342,7 +342,13 @@ public class GodotAndroidYandexAds extends GodotPlugin {
 
     @UsedByGodot
     public void loadInterstitial(final String id) {
-        activity.runOnUiThread(() -> interstitialAd = initInterstitial(id));
+        activity.runOnUiThread(() -> {
+            try {
+                interstitialAd = initInterstitial(id);
+            } catch (Exception e) {
+                Log.e("godot", e.toString());
+            }
+        });
     }
 
     @UsedByGodot
@@ -353,7 +359,7 @@ public class GodotAndroidYandexAds extends GodotPlugin {
                     @Override
                     public void onAdShown() {
                         Log.w("godot", "YandexAds: onInterstitialAdShown");
-                        emitSignal("_on_interstitial_ad_shown");
+                        emitSignal("_on_interstitial_ad_show");
                     }
 
                     @Override
