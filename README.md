@@ -1,40 +1,47 @@
 # Godot YandexAdsAndroid
+
 This plugin is designed to connect Yandex advertising to godot.
 
 ## Instruction
 
 ### 1. Downloading
-Download and unpack this archive.
+
+Download and unpack this [archive](https://github.com/noctisalamandra/godot-yandex-ads-android/releases/latest).
 
 ![Download](screens/download.png)
 
 ### 2. Distribution by files
-Move the contents of the 'yandex-plugin' folder to /android/plugins.
 
-![Download](screens/file1.png)
+Adding a folder to the root section of the project.
 
-Move the 'yandex-ads-lib' folder to your project.
-
-![Download](screens/file2.png)
+![Project](screens/project.png)
 
 ### 3. Project Setup
-In the project export, specify a custom build and plugins.
 
-![Download](screens/plugins.png)
+In the project settings, enable the plugin.
 
-Next, create a node for the advertising module where you need it.
+![Settings](screens/settings.png)
 
-![Download](screens/node.png)
+When exporting a project, enable "Use Grade Build".
+
+![Plugin](screens/plugin.png)
+
+In the "Permissions" section, enable "Access Network State" and "Internet".
+
+Then create a node for the advertising module where you need it and connect the "yandex_ads" script to it.gd", which can be found in the folder that we added.
+
+![Node](screens/node.png)
 
 And insert the ID of your ad.
 
-![Download](screens/key.png)
+![Key](screens/key.png)
 
-In build.gradle the module file of your application add the following code:
+In build.gradle along the way "android/build/build.gradle" add the following code:
+
 ```
 dependencies {
     ...
-    implementation 'com.yandex.android:mobileads:5.9.0'
+    implementation "com.yandex.android:mobileads:7.1.0"
 }
 ```
 
@@ -50,12 +57,29 @@ android {
 
 Then you can use the signals and functions written in the script to display ads.
 
-![Download](screens/signals.png)
+![Signals](screens/signals.png)
 
 ```
-func _on_CoinPlus_pressed():
-	$Yandex.load_rewarded_video()
-  
-func _on_Yandex_rewarded_video_loaded():
-	$Yandex.show_rewarded_video()
+func _ready():
+	$YandexAds.load_banner() 
+
+func _on_rewarded_pressed():
+	$YandexAds.load_rewarded_video()
+
+func _on_interstitial_pressed():
+	$YandexAds.load_interstitial()
+
+func _on_yandex_ads_rewarded_video_loaded():
+	$YandexAds.show_rewarded_video() 
+
+func _on_yandex_ads_interstitial_loaded():
+	$YandexAds.show_interstitial() 
+
+func _on_yandex_ads_banner_loaded():
+	$YandexAds.show_banner() 
+
+func _on_yandex_ads_rewarded(currency, ammount):
+	pass
 ```
+
+An example of plug-in connection can be found [here](https://github.com/noctisalamandra/godot-yandex-ads-android-demo).
