@@ -28,7 +28,7 @@ When exporting a project, enable "Use Grade Build".
 
 In the "Permissions" section, enable "Access Network State" and "Internet".
 
-Then create a node for the advertising module where you need it and connect the "yandex_ads" script to it.gd", which can be found in the folder that we added.
+Then create a node for the advertising module where you need it and connect the "yandex_ads.gd" script, which can be found in the folder that we added.
 
 ![Node](screens/node.png)
 
@@ -78,7 +78,7 @@ func _on_yandex_ads_interstitial_loaded():
 func _on_yandex_ads_banner_loaded():
 	$YandexAds.show_banner() 
 
-func _on_yandex_ads_rewarded(currency, ammount):
+func _on_yandex_ads_rewarded(currency, amount):
 	pass
 ```
 
