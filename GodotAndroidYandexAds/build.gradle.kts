@@ -31,10 +31,10 @@ android {
 }
 
 dependencies {
-    implementation("com.yandex.android:mobileads:7.1.0")        // Yandex mobile ads
-    implementation("io.appmetrica.analytics:analytics:6.5.0")   // Yandex metrics
+    implementation("com.yandex.android:mobileads:7.2.0")        // Yandex mobile ads
+    implementation("io.appmetrica.analytics:analytics:7.0.0")   // Yandex metrics
     implementation("org.godotengine:godot:4.2.2.stable")        // Godot
-    implementation("androidx.test.ext:junit:1.1.5")
+    implementation("androidx.test.ext:junit:1.2.1")
 }
 
 val copyDebugAARToPluginAddons by tasks.registering(Copy::class) {
