@@ -26,6 +26,14 @@ class AndroidExportPlugin extends EditorExportPlugin:
 			return PackedStringArray([_plugin_name + "/bin/debug/" + _plugin_name + "-debug.aar"])
 		else:
 			return PackedStringArray([_plugin_name + "/bin/release/" + _plugin_name + "-release.aar"])
+	
+
+	func _get_android_dependencies(platform, debug):
+		if debug:
+			return PackedStringArray(["com.yandex.android:mobileads:7.3.0"])
+		else:
+			return PackedStringArray(["com.yandex.android:mobileads:7.3.0"])
+
 
 	func _get_name():
 		return _plugin_name
