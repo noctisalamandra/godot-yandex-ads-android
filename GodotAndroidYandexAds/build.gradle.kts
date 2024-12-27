@@ -31,8 +31,8 @@ android {
 }
 
 dependencies {
-    implementation("com.yandex.android:mobileads:7.6.0")        // Yandex mobile ads
-    implementation("io.appmetrica.analytics:analytics:7.2.2")   // Yandex metrics
+    implementation("com.yandex.android:mobileads:7.8.1")        // Yandex mobile ads
+    implementation("io.appmetrica.analytics:analytics:7.5.0")   // Yandex metrics
     implementation("org.godotengine:godot:4.3.0.stable")        // Godot
     implementation("androidx.test.ext:junit:1.2.1")
 }
