@@ -118,7 +118,10 @@ public class GodotAndroidYandexAds extends GodotPlugin {
     }
 
     @NonNull
-    private BannerAdSize getAdSize() {
+    private BannerAdSize getAdSize(int width, int height) {
+        if (width > 0 && height > 0) {
+            return BannerAdSize.fixedSize(activity, width, height);
+        }
         DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
         int adWidthPixels = bannerAdView != null ? bannerAdView.getWidth() : displayMetrics.widthPixels;
         int adWidth = Math.round(adWidthPixels / displayMetrics.density);
@@ -126,7 +129,7 @@ public class GodotAndroidYandexAds extends GodotPlugin {
     }
 
     @NonNull
-    private BannerAdView initBanner(final String id, final boolean isOnTop) {
+    private BannerAdView initBanner(final String id, final boolean isOnTop, int width, int height) {
         layout = (FrameLayout) activity.getWindow().getDecorView().getRootView();
         adParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         adParams.gravity = isOnTop ? Gravity.TOP : Gravity.BOTTOM;
@@ -134,7 +137,7 @@ public class GodotAndroidYandexAds extends GodotPlugin {
         BannerAdView bannerAdView = new BannerAdView(activity);
         bannerAdView.setAdUnitId(id);
         bannerAdView.setBackgroundColor(Color.TRANSPARENT);
-        bannerAdView.setAdSize(getAdSize());
+        bannerAdView.setAdSize(getAdSize(width, height));
         bannerAdView.setBannerAdEventListener(createBannerAdEventListener());
 
         layout.addView(bannerAdView, adParams);
@@ -183,10 +186,10 @@ public class GodotAndroidYandexAds extends GodotPlugin {
     }
 
     @UsedByGodot
-    public void loadBanner(final String id, final boolean isOnTop) {
+    public void loadBanner(final String id, final boolean isOnTop, int width, int height) {
         activity.runOnUiThread(() -> {
             if (bannerAdView == null) {
-                bannerAdView = initBanner(id, isOnTop);
+                bannerAdView = initBanner(id, isOnTop, width, height);
             } else {
                 bannerAdView.loadAd(new AdRequest.Builder().build());
                 Log.w("godot", "YandexAds: Banner already created: " + id);
