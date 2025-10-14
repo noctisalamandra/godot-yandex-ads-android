@@ -111,6 +111,11 @@ public class GodotAndroidYandexAds extends GodotPlugin {
         MobileAds.initialize(activity, () -> Log.d(YANDEX_MOBILE_ADS_TAG, "SDK initialized"));
     }
 
+    @UsedByGodot
+    public void setAgeRestrictedUser(@NonNull final Boolean isAgeRestrictedUser){
+        MobileAds.setAgeRestrictedUser(isAgeRestrictedUser);
+    }
+
     @Override
     public View onMainCreate(Activity activity) {
         layout = new FrameLayout(activity);
