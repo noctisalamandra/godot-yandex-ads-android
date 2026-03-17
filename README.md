@@ -1,5 +1,7 @@
 # Godot Android Yandex Ads
 
+[🇷🇺 Русская версия](README.ru.md)
+
 Android plugin for [Godot 4](https://godotengine.org/) that integrates [Yandex Mobile Ads SDK](https://yandex.ru/dev/mobile-ads/).
 
 Supports banner, interstitial, and rewarded video ads.
