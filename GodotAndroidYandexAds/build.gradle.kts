@@ -10,7 +10,7 @@ val pluginPackageName = "com.darkmoonight.godotandroidyandexads"
 
 android {
     namespace = pluginPackageName
-    compileSdk = 36
+    compileSdk = 35
 
     buildFeatures {
         buildConfig = true
@@ -33,7 +33,7 @@ android {
 dependencies {
     implementation("com.yandex.android:mobileads:7.18.3")
     implementation("io.appmetrica.analytics:analytics:7.14.2")
-    implementation("org.godotengine:godot:4.6.0.stable")
+    implementation("org.godotengine:godot:4.6.1.stable")
     implementation("androidx.test.ext:junit:1.3.0")
 }
 
